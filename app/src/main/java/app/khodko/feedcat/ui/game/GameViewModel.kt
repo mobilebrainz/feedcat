@@ -3,8 +3,9 @@ package app.khodko.feedcat.ui.game
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import app.khodko.feedcat.database.repository.GameResultRepository
 
-class GameViewModel : ViewModel() {
+class GameViewModel(private val gameResultRepository: GameResultRepository) : ViewModel() {
 
     companion object {
         const val MAX_COUNT = 15

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import app.khodko.feedcat.App
 import app.khodko.feedcat.R
 import app.khodko.feedcat.ShareTextInterface
+import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
@@ -25,7 +27,7 @@ class GameFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        gameViewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        gameViewModel = getViewModelExt { GameViewModel(App.instance.gameResultRepository) }
         _binding = FragmentGameBinding.inflate(inflater, container, false)
 
         initObservers()

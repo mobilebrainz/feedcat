@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.databinding.FragmentResultsBinding
 
 class ResultsFragment : Fragment() {
@@ -21,7 +22,7 @@ class ResultsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        resultsViewModel = ViewModelProvider(this).get(ResultsViewModel::class.java)
+        resultsViewModel = getViewModelExt{ ResultsViewModel() }
 
         _binding = FragmentResultsBinding.inflate(inflater, container, false)
         val root: View = binding.root
