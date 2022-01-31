@@ -1,0 +1,68 @@
+package app.khodko.feedcat.ui.game
+
+import android.os.Bundle
+import android.view.*
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import app.khodko.feedcat.R
+import app.khodko.feedcat.ShareTextInterface
+import app.khodko.feedcat.databinding.FragmentGameBinding
+
+class GameFragment : Fragment() {
+
+    private var _binding: FragmentGameBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var gameViewModel: GameViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        gameViewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        _binding = FragmentGameBinding.inflate(inflater, container, false)
+
+        initObservers()
+        initListeners()
+
+        return binding.root
+    }
+
+    private fun initObservers() {
+        gameViewModel.satiety.observe(viewLifecycleOwner) {
+            binding.textSatiety.text = getString(R.string.text_satiety, it)
+        }
+    }
+
+    private fun initListeners() {
+        binding.btnFeed.setOnClickListener { gameViewModel.feed() }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.game_fragment_options_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.share -> {
+                val resultStr = "Result: 100"
+                val shareTextInterface = requireActivity() as ShareTextInterface
+                shareTextInterface.shareText(resultStr)
+                true
+            }
+            else -> false
+        }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
