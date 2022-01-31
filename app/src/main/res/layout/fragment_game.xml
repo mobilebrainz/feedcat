@@ -14,20 +14,27 @@
             android:id="@+id/text_satiety"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello"
             android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/image_cat"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/cat_food_hearts_icon"/>
 
         <Button
             android:id="@+id/btn_feed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="FEED"/>
+            android:text="FEED" />
 
         <Button
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"/>
+            android:text="Save" />
 
     </LinearLayout>
 

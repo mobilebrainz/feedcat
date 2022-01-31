@@ -43,8 +43,22 @@ class GameFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.btnFeed.setOnClickListener { gameViewModel.feed() }
+        binding.btnFeed.setOnClickListener {
+            if (gameViewModel.feed()) animateCat()
+        }
         binding.btnSave.setOnClickListener { gameViewModel.save() }
+    }
+
+    private fun animateCat() {
+        binding.imageCat.animate().apply {
+            duration = 1000
+            rotationYBy(360f)
+        }.withEndAction {
+            binding.imageCat.animate().apply {
+                duration = 1000
+                rotationYBy(3600f)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

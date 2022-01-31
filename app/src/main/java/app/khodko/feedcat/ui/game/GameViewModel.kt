@@ -14,15 +14,12 @@ class GameViewModel(private val gameResultRepository: GameResultRepository) : Vi
         const val MAX_COUNT = 15
     }
 
-    private val _satiety = MutableLiveData<Int>().apply {
-        value = 0
-    }
+    private val _satiety = MutableLiveData(0)
     val satiety: LiveData<Int> = _satiety
 
-    fun feed() {
-        _satiety.value?.let {
-            _satiety.value = if (it < MAX_COUNT) it.plus(1) else 0
-        }
+    fun feed(): Boolean {
+        _satiety.value = _satiety.value!! + 1
+        return _satiety.value!!.mod(MAX_COUNT) == 0
     }
 
     fun save() {
