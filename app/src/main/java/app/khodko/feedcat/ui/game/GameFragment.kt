@@ -44,6 +44,7 @@ class GameFragment : Fragment() {
 
     private fun initListeners() {
         binding.btnFeed.setOnClickListener { gameViewModel.feed() }
+        binding.btnSave.setOnClickListener { gameViewModel.save() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
