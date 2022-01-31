@@ -3,7 +3,6 @@ package app.khodko.feedcat.ui.game
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import app.khodko.feedcat.App
 import app.khodko.feedcat.R
 import app.khodko.feedcat.ShareTextInterface
