@@ -1,5 +1,7 @@
 package app.khodko.feedcat.ui.game
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +10,10 @@ import app.khodko.feedcat.database.entity.GameResult
 import app.khodko.feedcat.database.entity.User
 import app.khodko.feedcat.database.repository.GameResultRepository
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class GameViewModel(
     private val gameResultRepository: GameResultRepository,
@@ -29,7 +35,9 @@ class GameViewModel(
     fun save() {
         user?.let { u ->
             _satiety.value?.let {
-                val gameResult = GameResult(it, u.id)
+                val sdf = SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.US)
+                val currentDate = sdf.format(Calendar.getInstance().time)
+                val gameResult = GameResult(it, u.id, currentDate)
                 viewModelScope.launch {
                     gameResultRepository.insert(gameResult)
                 }

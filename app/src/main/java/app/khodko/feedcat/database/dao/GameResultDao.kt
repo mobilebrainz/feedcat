@@ -1,9 +1,7 @@
-
 package app.khodko.feedcat.database.dao
 
 import androidx.room.*
 import app.khodko.feedcat.database.entity.GameResult
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GameResultDao {

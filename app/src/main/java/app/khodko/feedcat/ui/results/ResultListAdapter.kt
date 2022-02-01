@@ -22,10 +22,15 @@ class ResultListAdapter : ListAdapter<GameResult, ResultListAdapter.ResultViewHo
     }
 
     class ResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val wordItemView: TextView = itemView.findViewById(R.id.textView)
+
+        private val satietyView: TextView = itemView.findViewById(R.id.satietyView)
+        private val dateView: TextView = itemView.findViewById(R.id.dateView)
 
         fun bind(gameResult: GameResult?) {
-            wordItemView.text = gameResult?.satiety.toString()
+            gameResult?.apply {
+                satietyView.text = itemView.context.getString(R.string.text_satiety, satiety)
+                dateView.text = datetime
+            }
         }
 
         companion object {
