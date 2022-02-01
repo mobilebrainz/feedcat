@@ -14,7 +14,7 @@ object PreferenceHelper {
         editMe.apply()
     }
 
-    inline fun SharedPreferences.Editor.put(pair: Pair<String, Any>) {
+    fun SharedPreferences.Editor.put(pair: Pair<String, Any>) {
         val key = pair.first
         when (val value = pair.second) {
             is String -> putString(key, value)

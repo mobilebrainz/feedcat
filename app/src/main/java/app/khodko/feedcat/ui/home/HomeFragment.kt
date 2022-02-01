@@ -18,6 +18,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,10 +27,12 @@ class HomeFragment : Fragment() {
     ): View {
         homeViewModel = getViewModelExt { HomeViewModel(App.instance.userRepository) }
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        userPreferences = UserPreferences.getInstance(requireContext())
+
         initObservers()
         initListeners()
 
-        val user = UserPreferences.getUser(requireContext())
+        val user = userPreferences.getUser()
         user?.let { homeViewModel.setUser(it) }
 
         return binding.root
@@ -58,7 +61,7 @@ class HomeFragment : Fragment() {
                 binding.layoutMain.visibility = View.VISIBLE
                 binding.textWelcome.text = getString(R.string.text_welcome, it.name)
 
-                UserPreferences.saveUser(requireContext(), it)
+                userPreferences.saveUser(it)
             }
         }
     }
@@ -101,7 +104,7 @@ class HomeFragment : Fragment() {
         binding.layoutLogin.visibility = View.VISIBLE
         binding.layoutMain.visibility = View.GONE
         homeViewModel.logout()
-        UserPreferences.removeUser(requireContext())
+        userPreferences.removeUser()
     }
 
     override fun onDestroyView() {

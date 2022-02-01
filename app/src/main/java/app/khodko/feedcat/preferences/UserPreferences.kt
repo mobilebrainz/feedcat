@@ -10,31 +10,27 @@ private const val USER_ID = "USER_ID"
 private const val USER_NAME = "NAME"
 private const val USER_PASSWORD = "PASSWORD"
 
-object UserPreferences {
+class UserPreferences private constructor(context: Context) {
 
-    fun getPreferences(context: Context) =
-        PreferenceHelper.customPreference(context, USER_PREFERENCES)
+    private val preferences = PreferenceHelper.customPreference(context, USER_PREFERENCES)
 
-    fun saveUser(context: Context, user: User) {
-        val prefs = getPreferences(context)
-        prefs.userId = user.id
-        prefs.userName = user.name
-        prefs.userPassword = user.password
+    fun saveUser(user: User) {
+        preferences.userId = user.id
+        preferences.userName = user.name
+        preferences.userPassword = user.password
     }
 
-    fun getUser(context: Context): User? {
-        val prefs = getPreferences(context)
-        if (prefs.userId > 0L) {
-            val user = User(prefs.userName!!, prefs.userPassword!!)
-            user.id = prefs.userId
+    fun getUser(): User? {
+        if (preferences.userId > 0L) {
+            val user = User(preferences.userName!!, preferences.userPassword!!)
+            user.id = preferences.userId
             return user
         }
         return null
     }
 
-    fun removeUser(context: Context) {
-        val prefs = getPreferences(context)
-        prefs.editMe {
+    fun removeUser() {
+        preferences.editMe {
             it.remove(USER_ID)
             it.remove(USER_NAME)
             it.remove(USER_PASSWORD)
@@ -58,4 +54,21 @@ object UserPreferences {
         set(value) {
             editMe { it.putString(USER_PASSWORD, value) }
         }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: UserPreferences? = null
+
+        fun getInstance(context: Context): UserPreferences {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE?.let {
+                    return it
+                }
+
+                val instance = UserPreferences(context)
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 }
