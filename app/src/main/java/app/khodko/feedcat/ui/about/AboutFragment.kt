@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import app.khodko.feedcat.core.extension.getViewModelExt
-import app.khodko.feedcat.databinding.FragmentHomeBinding
+import app.khodko.feedcat.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var aboutViewModel: AboutViewModel
@@ -20,8 +20,8 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        aboutViewModel = getViewModelExt{ AboutViewModel() }
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        aboutViewModel = getViewModelExt { AboutViewModel() }
+        _binding = FragmentAboutBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         return root

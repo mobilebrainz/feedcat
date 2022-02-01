@@ -1,14 +1,10 @@
-
 package app.khodko.feedcat.database.repository
 
 import androidx.annotation.WorkerThread
 import app.khodko.feedcat.database.dao.GameResultDao
 import app.khodko.feedcat.database.entity.GameResult
-import kotlinx.coroutines.flow.Flow
 
 class GameResultRepository(private val gameResultDao: GameResultDao) {
-
-    val allGameResults: Flow<List<GameResult>> = gameResultDao.getGameResults()
 
     @WorkerThread
     suspend fun insert(gameResult: GameResult) {
@@ -16,7 +12,10 @@ class GameResultRepository(private val gameResultDao: GameResultDao) {
     }
 
     @WorkerThread
-    suspend fun delete(gameResult: GameResult){
+    suspend fun delete(gameResult: GameResult) {
         gameResultDao.delete(gameResult)
     }
+
+    @WorkerThread
+    suspend fun getGameResults(userId: Long) = gameResultDao.getGameResults(userId)
 }

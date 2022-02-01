@@ -71,6 +71,7 @@ class HomeFragment : Fragment() {
         binding.btnLogin.setOnClickListener { login() }
         binding.btnRegistr.setOnClickListener { registr() }
         binding.btnPlay.setOnClickListener { navigateExt(R.id.nav_game) }
+        binding.btnResults.setOnClickListener { navigateExt(R.id.nav_results) }
         binding.btnLogout.setOnClickListener { logout() }
     }
 

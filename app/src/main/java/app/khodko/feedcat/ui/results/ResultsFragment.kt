@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import app.khodko.feedcat.App
 import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.databinding.FragmentResultsBinding
+import app.khodko.feedcat.preferences.UserPreferences
 
 class ResultsFragment : Fragment() {
 
@@ -21,16 +22,24 @@ class ResultsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        resultsViewModel = getViewModelExt{ ResultsViewModel() }
-
+        val user = UserPreferences.getInstance(requireContext()).getUser()
+        resultsViewModel =
+            getViewModelExt { ResultsViewModel(App.instance.gameResultRepository, user) }
         _binding = FragmentResultsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textSlideshow
-        resultsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        initRecycler()
+
+        return binding.root
+    }
+
+    private fun initRecycler() {
+        val recyclerView = binding.recyclerView
+        val adapter = ResultListAdapter()
+        recyclerView.adapter = adapter
+
+        resultsViewModel.gameResults.observe(viewLifecycleOwner) {
+            it.let { adapter.submitList(it) }
         }
-        return root
     }
 
     override fun onDestroyView() {

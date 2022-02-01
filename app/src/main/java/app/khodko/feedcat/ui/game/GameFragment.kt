@@ -8,6 +8,7 @@ import app.khodko.feedcat.R
 import app.khodko.feedcat.ShareTextInterface
 import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.databinding.FragmentGameBinding
+import app.khodko.feedcat.preferences.UserPreferences
 
 class GameFragment : Fragment() {
 
@@ -26,7 +27,8 @@ class GameFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        gameViewModel = getViewModelExt { GameViewModel(App.instance.gameResultRepository) }
+        val user = UserPreferences.getInstance(requireContext()).getUser()
+        gameViewModel = getViewModelExt { GameViewModel(App.instance.gameResultRepository, user) }
         _binding = FragmentGameBinding.inflate(inflater, container, false)
 
         initObservers()

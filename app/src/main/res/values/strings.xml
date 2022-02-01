@@ -25,6 +25,7 @@
     <string name="login_error">Such user does not exist!</string>
     <string name="text_welcome">Welcome %1$s!</string>
     <string name="btn_play">Play</string>
+    <string name="btn_results">Results</string>
     <string name="btn_logout">Logout</string>
 
 </resources>

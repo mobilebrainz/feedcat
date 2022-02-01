@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GameResultDao {
 
-    @Query("SELECT * FROM game_result ORDER BY id ASC")
-    fun getGameResults(): Flow<List<GameResult>>
+    @Query("SELECT * FROM game_result WHERE user_id = :userId ORDER BY id ASC")
+    suspend fun getGameResults(userId: Long): List<GameResult>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(gameResult: GameResult)
@@ -17,6 +17,4 @@ interface GameResultDao {
     @Delete
     suspend fun delete(gameResult: GameResult)
 
-    @Query("DELETE FROM game_result")
-    suspend fun deleteAll()
 }
