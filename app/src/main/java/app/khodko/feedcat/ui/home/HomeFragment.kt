@@ -10,6 +10,7 @@ import app.khodko.feedcat.R
 import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.database.entity.User
 import app.khodko.feedcat.databinding.FragmentHomeBinding
+import app.khodko.feedcat.preferences.UserPreferences
 
 class HomeFragment : Fragment() {
 
@@ -27,6 +28,10 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         initObservers()
         initListeners()
+
+        val user = UserPreferences.getUser(requireContext())
+        user?.let { homeViewModel.setUser(it) }
+
         return binding.root
     }
 
@@ -52,6 +57,8 @@ class HomeFragment : Fragment() {
                 binding.layoutLogin.visibility = View.GONE
                 binding.layoutMain.visibility = View.VISIBLE
                 binding.textWelcome.text = getString(R.string.text_welcome, it.name)
+
+                UserPreferences.saveUser(requireContext(), it)
             }
         }
     }
@@ -94,6 +101,7 @@ class HomeFragment : Fragment() {
         binding.layoutLogin.visibility = View.VISIBLE
         binding.layoutMain.visibility = View.GONE
         homeViewModel.logout()
+        UserPreferences.removeUser(requireContext())
     }
 
     override fun onDestroyView() {

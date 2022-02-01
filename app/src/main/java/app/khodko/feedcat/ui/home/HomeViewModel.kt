@@ -19,6 +19,9 @@ class HomeViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> = _user
+    fun setUser(user: User) {
+        _user.value = user
+    }
 
     fun save(user: User) {
         viewModelScope.launch {
