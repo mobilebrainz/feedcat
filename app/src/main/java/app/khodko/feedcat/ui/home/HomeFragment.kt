@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import app.khodko.feedcat.App
 import app.khodko.feedcat.R
 import app.khodko.feedcat.core.extension.getViewModelExt
+import app.khodko.feedcat.core.extension.navigateExt
 import app.khodko.feedcat.database.entity.User
 import app.khodko.feedcat.databinding.FragmentHomeBinding
 import app.khodko.feedcat.preferences.UserPreferences
@@ -69,7 +70,7 @@ class HomeFragment : Fragment() {
     private fun initListeners() {
         binding.btnLogin.setOnClickListener { login() }
         binding.btnRegistr.setOnClickListener { registr() }
-        binding.btnPlay.setOnClickListener { }
+        binding.btnPlay.setOnClickListener { navigateExt(R.id.nav_game) }
         binding.btnLogout.setOnClickListener { logout() }
     }
 
