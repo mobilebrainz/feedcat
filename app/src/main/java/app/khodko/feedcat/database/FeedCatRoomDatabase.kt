@@ -6,13 +6,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import app.khodko.feedcat.database.dao.GameResultDao
+import app.khodko.feedcat.database.dao.UserDao
 import app.khodko.feedcat.database.entity.GameResult
+import app.khodko.feedcat.database.entity.User
 import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = [GameResult::class], version = 1, exportSchema = false)
+@Database(entities = [GameResult::class, User::class], version = 1, exportSchema = false)
 abstract class FeedCatRoomDatabase : RoomDatabase() {
 
     abstract fun gameResultDao(): GameResultDao
+    abstract fun userDao(): UserDao
 
     companion object {
 

@@ -10,13 +10,11 @@ class GameResultRepository(private val gameResultDao: GameResultDao) {
 
     val allGameResults: Flow<List<GameResult>> = gameResultDao.getGameResults()
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(gameResult: GameResult) {
         gameResultDao.insert(gameResult)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun delete(gameResult: GameResult){
         gameResultDao.delete(gameResult)
