@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import app.khodko.feedcat.App
 import app.khodko.feedcat.R
-import app.khodko.feedcat.ShareTextInterface
 import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.core.extension.navigateExt
 import app.khodko.feedcat.databinding.FragmentGameBinding
@@ -19,11 +18,6 @@ class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
     private lateinit var gameViewModel: GameViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -121,22 +115,9 @@ class GameFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
-        inflater.inflate(R.menu.game_fragment_options_menu, menu)
+        inflater.inflate(R.menu.home_fragment_options_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem) =
-        when (item.itemId) {
-            R.id.share -> {
-                val str = "Application: Feed the Cat\n" +
-                        "User: ${gameViewModel.user?.name}\n" +
-                        "Result: satiety = ${gameViewModel.satiety.value}\n"
-                val shareTextInterface = requireActivity() as ShareTextInterface
-                shareTextInterface.shareText(str)
-                true
-            }
-            else -> false
-        }
 
     override fun onStop() {
         super.onStop()

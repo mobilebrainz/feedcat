@@ -8,7 +8,6 @@ import app.khodko.feedcat.core.viewmodel.SingleLiveEvent
 import app.khodko.feedcat.database.entity.GameResult
 import app.khodko.feedcat.database.entity.User
 import app.khodko.feedcat.database.repository.GameResultRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -56,7 +55,7 @@ class GameViewModel(
         }
     }
 
-    private fun timer() = viewModelScope.launch(Dispatchers.IO) {
+    private fun timer() = viewModelScope.launch {
         while (true) {
             _animateNumber.postValue(Random().nextInt(90) / 30)
             delay(2000L)
