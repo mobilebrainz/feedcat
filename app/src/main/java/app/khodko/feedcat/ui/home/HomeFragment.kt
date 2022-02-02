@@ -71,9 +71,9 @@ class HomeFragment : Fragment() {
             }
         }
         homeViewModel.lastGameResult.observe(viewLifecycleOwner) {
-            binding.textLastResult.visibility = View.VISIBLE
-            binding.textLastResult.text =
-                getString(R.string.text_last_result, it.satiety, it.datetime)
+            binding.layoutResult.visibility = View.VISIBLE
+            binding.textSatiety.text = getString(R.string.text_satiety, it.satiety)
+            binding.textDate.text = getString(R.string.text_date, it.datetime)
         }
     }
 
