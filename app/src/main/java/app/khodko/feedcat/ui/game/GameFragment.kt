@@ -10,18 +10,14 @@ import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.core.extension.navigateExt
 import app.khodko.feedcat.databinding.FragmentGameBinding
 import app.khodko.feedcat.preferences.UserPreferences
-import java.util.*
 
 class GameFragment : Fragment() {
 
     private var isAnimateBtn1 = false
     private var isAnimateBtn2 = false
     private var isAnimateBtn3 = false
-    private var thread: Thread? = null
-
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var gameViewModel: GameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,71 +44,38 @@ class GameFragment : Fragment() {
         gameViewModel.satiety.observe(viewLifecycleOwner) {
             binding.textSatiety.text = getString(R.string.text_satiety, it)
         }
+        gameViewModel.animateNumber.observe(viewLifecycleOwner) {
+            when (it) {
+                0 -> animateBtn1()
+                1 -> animateBtn2()
+                2 -> animateBtn3()
+            }
+        }
     }
 
     private fun initListeners() {
-        binding.btnFeed1.setOnClickListener {
-            if (isAnimateBtn1) {
-                if (gameViewModel.feed()) animateCat()
-            } else {
-                gameViewModel.take()
-            }
-        }
-        binding.btnFeed2.setOnClickListener {
-            if (isAnimateBtn2) {
-                if (gameViewModel.feed()) animateCat()
-            } else {
-                gameViewModel.take()
-            }
-        }
-        binding.btnFeed3.setOnClickListener {
-            if (isAnimateBtn3) {
-                if (gameViewModel.feed()) animateCat()
-            } else {
-                gameViewModel.take()
-            }
-        }
+        binding.btnFeed1.setOnClickListener { feed(isAnimateBtn1) }
+        binding.btnFeed2.setOnClickListener { feed(isAnimateBtn2) }
+        binding.btnFeed3.setOnClickListener { feed(isAnimateBtn3) }
         binding.btnStop.setOnClickListener {
             gameViewModel.save()
             navigateExt(R.id.nav_home)
         }
     }
 
-    private fun startGame() {
-        thread = Thread {
-            while (true) {
-                activity?.runOnUiThread {
-                    _binding?.let {
-                        when (Random().nextInt(90) / 30) {
-                            0 -> animateBtn1()
-                            1 -> animateBtn2()
-                            2 -> animateBtn3()
-                        }
-                    }
-                }
-                try {
-                    Thread.sleep(2500L)
-                } catch (e: InterruptedException) {
-                    Thread.currentThread().interrupt()
-                }
-            }
+    private fun feed(flag: Boolean) {
+        if (flag) {
+            animateFeedCat(1.5f)
+            if (gameViewModel.feed()) animateCat()
+        } else {
+            animateFeedCat(0.7f)
+            gameViewModel.take()
         }
-        thread?.start()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        startGame()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        thread?.interrupt()
     }
 
     private fun animateBtn1() {
         binding.btnFeed1.animate().apply {
-            duration = 1500
+            duration = 1200
             rotationYBy(360f)
             isAnimateBtn1 = true
         }.withEndAction {
@@ -122,7 +85,7 @@ class GameFragment : Fragment() {
 
     private fun animateBtn2() {
         binding.btnFeed2.animate().apply {
-            duration = 1500
+            duration = 1200
             rotationYBy(360f)
             isAnimateBtn2 = true
         }.withEndAction {
@@ -132,7 +95,7 @@ class GameFragment : Fragment() {
 
     private fun animateBtn3() {
         binding.btnFeed3.animate().apply {
-            duration = 1500
+            duration = 1200
             rotationYBy(360f)
             isAnimateBtn3 = true
         }.withEndAction {
@@ -144,13 +107,26 @@ class GameFragment : Fragment() {
         binding.imageCat.animate().apply {
             duration = 1000
             rotationYBy(360f)
-        }.withEndAction {
-            //binding.imageCat.animate().apply {
-            //    duration = 1000
-            //    rotationYBy(3600f)
-            //}
+            scaleX(1.0f)
+            scaleY(1.0f)
         }
     }
+
+    private fun animateFeedCat(scale: Float) {
+        binding.imageCat.animate().apply {
+            duration = 200
+            scaleX(scale)
+            scaleY(scale)
+        }.withEndAction {
+            binding.imageCat.animate().apply {
+                duration = 200
+                scaleX(1.0f)
+                scaleY(1.0f)
+            }
+        }
+    }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -170,6 +146,16 @@ class GameFragment : Fragment() {
             }
             else -> false
         }
+
+    override fun onStop() {
+        super.onStop()
+        gameViewModel.stopTimer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        gameViewModel.resumeTimer()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
