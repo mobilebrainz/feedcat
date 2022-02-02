@@ -23,5 +23,13 @@ class ResultsViewModel(
     }
     val gameResults: LiveData<List<GameResult>> = _gameResults
 
+    fun delete(gameResult: GameResult) {
+            viewModelScope.launch {
+                gameResultRepository.delete(gameResult)
+                user?.let {
+                    _gameResults.value = gameResultRepository.getGameResults(it.id)
+                }
+        }
+    }
 
 }

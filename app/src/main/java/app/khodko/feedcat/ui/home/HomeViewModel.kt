@@ -28,8 +28,8 @@ class HomeViewModel(
         _user.value = user
     }
 
-    private val _lastGameResult = MutableLiveData<GameResult>()
-    val lastGameResult: LiveData<GameResult> = _lastGameResult
+    private val _lastGameResult = MutableLiveData<GameResult?>()
+    val lastGameResult: LiveData<GameResult?> = _lastGameResult
 
     fun loadLastGameResult() {
         user.value?.let {
@@ -37,6 +37,8 @@ class HomeViewModel(
                 val results = gameResultRepository.getLastGameResult(it.id)
                 if (results.isNotEmpty()) {
                     _lastGameResult.value = results[0]
+                } else {
+                    _lastGameResult.value = null
                 }
             }
         }
@@ -67,6 +69,7 @@ class HomeViewModel(
 
     fun logout() {
         _user.value = null
+        _lastGameResult.value = null
     }
 
 }

@@ -1,4 +1,3 @@
-
 package app.khodko.feedcat.database
 
 import android.content.Context
@@ -9,7 +8,6 @@ import app.khodko.feedcat.database.dao.GameResultDao
 import app.khodko.feedcat.database.dao.UserDao
 import app.khodko.feedcat.database.entity.GameResult
 import app.khodko.feedcat.database.entity.User
-import kotlinx.coroutines.CoroutineScope
 
 @Database(entities = [GameResult::class, User::class], version = 1, exportSchema = false)
 abstract class FeedCatRoomDatabase : RoomDatabase() {
@@ -22,7 +20,7 @@ abstract class FeedCatRoomDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: FeedCatRoomDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): FeedCatRoomDatabase {
+        fun getDatabase(context: Context): FeedCatRoomDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room
                     .databaseBuilder(

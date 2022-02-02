@@ -1,12 +1,11 @@
 package app.khodko.feedcat.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import app.khodko.feedcat.App
 import app.khodko.feedcat.R
+import app.khodko.feedcat.ShareTextInterface
 import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.core.extension.navigateExt
 import app.khodko.feedcat.database.entity.User
@@ -20,6 +19,11 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var userPreferences: UserPreferences
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,9 +75,14 @@ class HomeFragment : Fragment() {
             }
         }
         homeViewModel.lastGameResult.observe(viewLifecycleOwner) {
-            binding.textLastResult.visibility = View.VISIBLE
-            binding.textLastResult.text =
-                getString(R.string.text_last_result, it.satiety, it.datetime)
+            it?.let { r ->
+                binding.layoutResult.visibility = View.VISIBLE
+                binding.textSatiety.text = getString(R.string.text_satiety, r.satiety)
+                binding.textDate.text = getString(R.string.text_date, r.datetime)
+            }
+            if (it == null) {
+                binding.layoutResult.visibility = View.GONE
+            }
         }
     }
 
@@ -118,6 +127,30 @@ class HomeFragment : Fragment() {
         homeViewModel.logout()
         userPreferences.removeUser()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.home_fragment_options_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) =
+        when (item.itemId) {
+            R.id.share -> {
+                homeViewModel.lastGameResult.value?.let { r ->
+                    homeViewModel.user.value?.let { u ->
+                        val str = "Application: Feed the Cat\n" +
+                                "User: ${u.name}\n" +
+                                "Result: satiety = ${r.satiety}\n" +
+                                "Date: ${r.datetime}\n"
+                        val shareTextInterface = requireActivity() as ShareTextInterface
+                        shareTextInterface.shareText(str)
+                    }
+                }
+                true
+            }
+            else -> false
+        }
 
     override fun onDestroyView() {
         super.onDestroyView()

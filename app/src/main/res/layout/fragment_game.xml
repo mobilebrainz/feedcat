@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     tools:context=".ui.game.GameFragment">
 
     <LinearLayout
@@ -14,27 +15,55 @@
             android:id="@+id/text_satiety"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp" />
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/image_cat"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/cat_food_hearts_icon"/>
+            android:src="@drawable/cat_food_hearts_icon" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_feed1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_feed1" />
+
+            <Button
+                android:id="@+id/btn_feed2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                android:text="@string/btn_feed2" />
+
+            <Button
+                android:id="@+id/btn_feed3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_feed3" />
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/btn_feed"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_game_over"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="FEED" />
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save" />
+            android:layout_marginTop="32dp"
+            android:text="@string/btn_game_over" />
 
     </LinearLayout>
 

@@ -15,7 +15,7 @@ class App : Application() {
 
     val applicationScope = CoroutineScope(SupervisorJob())
 
-    val database by lazy { FeedCatRoomDatabase.getDatabase(this, applicationScope) }
+    val database by lazy { FeedCatRoomDatabase.getDatabase(this) }
     val gameResultRepository by lazy { GameResultRepository(database.gameResultDao()) }
     val userRepository by lazy {UserRepository(database.userDao())}
 

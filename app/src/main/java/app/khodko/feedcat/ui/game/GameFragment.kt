@@ -2,25 +2,22 @@ package app.khodko.feedcat.ui.game
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import app.khodko.feedcat.App
 import app.khodko.feedcat.R
-import app.khodko.feedcat.ShareTextInterface
 import app.khodko.feedcat.core.extension.getViewModelExt
+import app.khodko.feedcat.core.extension.navigateExt
 import app.khodko.feedcat.databinding.FragmentGameBinding
 import app.khodko.feedcat.preferences.UserPreferences
 
 class GameFragment : Fragment() {
 
+    private var btnId = -1
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var gameViewModel: GameViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,45 +38,96 @@ class GameFragment : Fragment() {
         gameViewModel.satiety.observe(viewLifecycleOwner) {
             binding.textSatiety.text = getString(R.string.text_satiety, it)
         }
+        gameViewModel.animateNumber.observe(viewLifecycleOwner) {
+            when (it) {
+                0 -> animateBtn(binding.btnFeed1)
+                1 -> animateBtn(binding.btnFeed2)
+                2 -> animateBtn(binding.btnFeed3)
+            }
+        }
     }
 
     private fun initListeners() {
-        binding.btnFeed.setOnClickListener {
-            if (gameViewModel.feed()) animateCat()
+        binding.btnFeed1.setOnClickListener {
+            feed(btnId == R.id.btn_feed1)
         }
-        binding.btnSave.setOnClickListener { gameViewModel.save() }
+        binding.btnFeed2.setOnClickListener {
+            feed(btnId == R.id.btn_feed2)
+        }
+        binding.btnFeed3.setOnClickListener {
+            feed(btnId == R.id.btn_feed3)
+        }
+        binding.btnGameOver.setOnClickListener {
+            gameViewModel.save()
+            navigateExt(R.id.nav_home)
+        }
+    }
+
+    private fun feed(flag: Boolean) {
+        if (flag) {
+            animateFeedCat(1.5f)
+            if (gameViewModel.feed()) animateCat()
+        } else {
+            animateFeedCat(0.7f)
+            gameViewModel.take()
+        }
+    }
+
+    private fun animateBtn(button: Button) {
+        button.animate().apply {
+            duration = 1200
+            rotationYBy(360f)
+            button.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.md_light_green_A700
+                )
+            )
+            btnId = button.id
+        }.withEndAction {
+            button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+            btnId = 0
+        }
     }
 
     private fun animateCat() {
         binding.imageCat.animate().apply {
             duration = 1000
             rotationYBy(360f)
+            scaleX(1.0f)
+            scaleY(1.0f)
+        }
+    }
+
+    private fun animateFeedCat(scale: Float) {
+        binding.imageCat.animate().apply {
+            duration = 200
+            scaleX(scale)
+            scaleY(scale)
         }.withEndAction {
             binding.imageCat.animate().apply {
-                duration = 1000
-                rotationYBy(3600f)
+                duration = 200
+                scaleX(1.0f)
+                scaleY(1.0f)
             }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
-        inflater.inflate(R.menu.game_fragment_options_menu, menu)
+        inflater.inflate(R.menu.home_fragment_options_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) =
-        when (item.itemId) {
-            R.id.share -> {
-                val str = "Application: Feed the Cat\n" +
-                    "User: ${gameViewModel.user?.name}\n" +
-                    "Result: satiety = ${gameViewModel.satiety.value}\n"
-                val shareTextInterface = requireActivity() as ShareTextInterface
-                shareTextInterface.shareText(str)
-                true
-            }
-            else -> false
-        }
+    override fun onStop() {
+        super.onStop()
+        gameViewModel.stopTimer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        gameViewModel.resumeTimer()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
