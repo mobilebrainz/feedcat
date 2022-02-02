@@ -25,7 +25,11 @@ class GameViewModel(
 
     fun feed(): Boolean {
         _satiety.value = _satiety.value!! + 1
-        return _satiety.value!!.mod(MAX_COUNT) == 0
+        return _satiety.value != 0 && _satiety.value!!.mod(MAX_COUNT) == 0
+    }
+
+    fun take() {
+        _satiety.value = _satiety.value!! - 1
     }
 
     fun save() {

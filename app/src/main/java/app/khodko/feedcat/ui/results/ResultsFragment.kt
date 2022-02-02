@@ -1,10 +1,14 @@
 package app.khodko.feedcat.ui.results
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import app.khodko.feedcat.App
 import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.databinding.FragmentResultsBinding
@@ -40,6 +44,19 @@ class ResultsFragment : Fragment() {
         resultsViewModel.gameResults.observe(viewLifecycleOwner) {
             it.let { adapter.submitList(it) }
         }
+
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: ViewHolder, target: ViewHolder): Boolean {
+                return false
+            }
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+                val item = adapter.currentList[viewHolder.adapterPosition]
+                resultsViewModel.delete(item)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     override fun onDestroyView() {
