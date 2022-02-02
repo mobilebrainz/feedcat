@@ -71,9 +71,11 @@ class GameFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
             R.id.share -> {
-                val resultStr = "Result: 100"
+                val str = "Application: Feed the Cat\n" +
+                    "User: ${gameViewModel.user?.name}\n" +
+                    "Result: satiety = ${gameViewModel.satiety.value}\n"
                 val shareTextInterface = requireActivity() as ShareTextInterface
-                shareTextInterface.shareText(resultStr)
+                shareTextInterface.shareText(str)
                 true
             }
             else -> false

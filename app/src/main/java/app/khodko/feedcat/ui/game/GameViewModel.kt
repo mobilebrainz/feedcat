@@ -1,7 +1,5 @@
 package app.khodko.feedcat.ui.game
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,13 +9,11 @@ import app.khodko.feedcat.database.entity.User
 import app.khodko.feedcat.database.repository.GameResultRepository
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class GameViewModel(
     private val gameResultRepository: GameResultRepository,
-    private val user: User?
+    val user: User?
 ) : ViewModel() {
 
     companion object {
