@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="0dp"
     android:layout_marginBottom="2dp"
-    cardview:cardBackgroundColor="@color/white"
+    cardview:cardBackgroundColor="@color/cardBackground"
     cardview:cardCornerRadius="0dp"
     cardview:cardElevation="0dp">
 
@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
 
         <TextView
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
+            android:textColor="@color/textColor"
             android:textSize="14sp" />
 
     </LinearLayout>
