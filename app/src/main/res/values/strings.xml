@@ -28,5 +28,9 @@
     <string name="btn_play">Play</string>
     <string name="btn_results">Results</string>
     <string name="btn_logout">Logout</string>
+    <string name="btn_game_over">Game Over</string>
+    <string name="btn_feed1">Fish</string>
+    <string name="btn_feed2">Meat</string>
+    <string name="btn_feed3">Milk</string>
 
 </resources>

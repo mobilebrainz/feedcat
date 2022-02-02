@@ -2,6 +2,8 @@ package app.khodko.feedcat.ui.game
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import app.khodko.feedcat.App
 import app.khodko.feedcat.R
@@ -13,9 +15,7 @@ import app.khodko.feedcat.preferences.UserPreferences
 
 class GameFragment : Fragment() {
 
-    private var isAnimateBtn1 = false
-    private var isAnimateBtn2 = false
-    private var isAnimateBtn3 = false
+    private var btnId = -1
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
     private lateinit var gameViewModel: GameViewModel
@@ -46,18 +46,24 @@ class GameFragment : Fragment() {
         }
         gameViewModel.animateNumber.observe(viewLifecycleOwner) {
             when (it) {
-                0 -> animateBtn1()
-                1 -> animateBtn2()
-                2 -> animateBtn3()
+                0 -> animateBtn(binding.btnFeed1)
+                1 -> animateBtn(binding.btnFeed2)
+                2 -> animateBtn(binding.btnFeed3)
             }
         }
     }
 
     private fun initListeners() {
-        binding.btnFeed1.setOnClickListener { feed(isAnimateBtn1) }
-        binding.btnFeed2.setOnClickListener { feed(isAnimateBtn2) }
-        binding.btnFeed3.setOnClickListener { feed(isAnimateBtn3) }
-        binding.btnStop.setOnClickListener {
+        binding.btnFeed1.setOnClickListener {
+            feed(btnId == R.id.btn_feed1)
+        }
+        binding.btnFeed2.setOnClickListener {
+            feed(btnId == R.id.btn_feed2)
+        }
+        binding.btnFeed3.setOnClickListener {
+            feed(btnId == R.id.btn_feed3)
+        }
+        binding.btnGameOver.setOnClickListener {
             gameViewModel.save()
             navigateExt(R.id.nav_home)
         }
@@ -73,33 +79,20 @@ class GameFragment : Fragment() {
         }
     }
 
-    private fun animateBtn1() {
-        binding.btnFeed1.animate().apply {
+    private fun animateBtn(button: Button) {
+        button.animate().apply {
             duration = 1200
             rotationYBy(360f)
-            isAnimateBtn1 = true
+            button.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.md_light_green_A700
+                )
+            )
+            btnId = button.id
         }.withEndAction {
-            isAnimateBtn1 = false
-        }
-    }
-
-    private fun animateBtn2() {
-        binding.btnFeed2.animate().apply {
-            duration = 1200
-            rotationYBy(360f)
-            isAnimateBtn2 = true
-        }.withEndAction {
-            isAnimateBtn2 = false
-        }
-    }
-
-    private fun animateBtn3() {
-        binding.btnFeed3.animate().apply {
-            duration = 1200
-            rotationYBy(360f)
-            isAnimateBtn3 = true
-        }.withEndAction {
-            isAnimateBtn3 = false
+            button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+            btnId = 0
         }
     }
 
@@ -125,8 +118,6 @@ class GameFragment : Fragment() {
             }
         }
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()

@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="FEED1" />
+                android:text="@string/btn_feed1" />
 
             <Button
                 android:id="@+id/btn_feed2"
@@ -47,23 +47,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:text="FEED2" />
+                android:text="@string/btn_feed2" />
 
             <Button
                 android:id="@+id/btn_feed3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="FEED3" />
+                android:text="@string/btn_feed3" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_stop"
+            android:id="@+id/btn_game_over"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Stop" />
+            android:text="@string/btn_game_over" />
 
     </LinearLayout>
 

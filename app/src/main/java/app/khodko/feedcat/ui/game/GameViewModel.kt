@@ -58,8 +58,8 @@ class GameViewModel(
 
     private fun timer() = viewModelScope.launch(Dispatchers.IO) {
         while (true) {
-            delay(2000L)
             _animateNumber.postValue(Random().nextInt(90) / 30)
+            delay(2000L)
         }
     }
 
