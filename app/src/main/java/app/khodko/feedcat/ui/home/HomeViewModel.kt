@@ -5,11 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.khodko.feedcat.core.viewmodel.SingleLiveEvent
+import app.khodko.feedcat.database.entity.GameResult
 import app.khodko.feedcat.database.entity.User
+import app.khodko.feedcat.database.repository.GameResultRepository
 import app.khodko.feedcat.database.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val userRepository: UserRepository) : ViewModel() {
+class HomeViewModel(
+    private val userRepository: UserRepository,
+    private val gameResultRepository: GameResultRepository,
+) : ViewModel() {
 
     private val _existUser = SingleLiveEvent<Boolean>()
     val existUser: LiveData<Boolean> = _existUser
@@ -21,6 +26,20 @@ class HomeViewModel(private val userRepository: UserRepository) : ViewModel() {
     val user: LiveData<User?> = _user
     fun setUser(user: User) {
         _user.value = user
+    }
+
+    private val _lastGameResult = MutableLiveData<GameResult>()
+    val lastGameResult: LiveData<GameResult> = _lastGameResult
+
+    fun loadLastGameResult() {
+        user.value?.let {
+            viewModelScope.launch {
+                val results = gameResultRepository.getLastGameResult(it.id)
+                if (results.isNotEmpty()) {
+                    _lastGameResult.value = results[0]
+                }
+            }
+        }
     }
 
     fun save(user: User) {

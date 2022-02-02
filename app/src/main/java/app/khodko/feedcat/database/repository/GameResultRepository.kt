@@ -18,4 +18,7 @@ class GameResultRepository(private val gameResultDao: GameResultDao) {
 
     @WorkerThread
     suspend fun getGameResults(userId: Long) = gameResultDao.getGameResults(userId)
+
+    @WorkerThread
+    suspend fun getLastGameResult(userId: Long) = gameResultDao.getLastGameResult(userId)
 }

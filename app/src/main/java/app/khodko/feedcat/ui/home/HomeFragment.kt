@@ -26,7 +26,9 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel = getViewModelExt { HomeViewModel(App.instance.userRepository) }
+        homeViewModel = getViewModelExt {
+            HomeViewModel(App.instance.userRepository, App.instance.gameResultRepository)
+        }
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         userPreferences = UserPreferences.getInstance(requireContext())
 
@@ -34,7 +36,9 @@ class HomeFragment : Fragment() {
         initListeners()
 
         val user = userPreferences.getUser()
-        user?.let { homeViewModel.setUser(it) }
+        user?.let {
+            homeViewModel.setUser(it)
+        }
 
         return binding.root
     }
@@ -63,7 +67,13 @@ class HomeFragment : Fragment() {
                 binding.textWelcome.text = getString(R.string.text_welcome, it.name)
 
                 userPreferences.saveUser(it)
+                homeViewModel.loadLastGameResult()
             }
+        }
+        homeViewModel.lastGameResult.observe(viewLifecycleOwner) {
+            binding.textLastResult.visibility = View.VISIBLE
+            binding.textLastResult.text =
+                getString(R.string.text_last_result, it.satiety, it.datetime)
         }
     }
 
