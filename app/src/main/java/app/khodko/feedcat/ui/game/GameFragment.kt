@@ -75,16 +75,17 @@ class GameFragment : Fragment() {
 
     private fun animateBtn(button: Button) {
         button.animate().apply {
-            duration = 1200
-            rotationYBy(360f)
+            duration = 750
+            translationYBy(-25f)
             button.setBackgroundColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.md_light_green_A700
-                )
+                ContextCompat.getColor(requireContext(), R.color.md_light_green_A700)
             )
             btnId = button.id
         }.withEndAction {
+            button.animate().apply {
+                duration = 50
+                translationYBy(25f)
+            }
             button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
             btnId = 0
         }
