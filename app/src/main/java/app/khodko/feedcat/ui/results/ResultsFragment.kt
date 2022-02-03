@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import app.khodko.feedcat.App
 import app.khodko.feedcat.core.extension.getViewModelExt
+import app.khodko.feedcat.data.preferences.UserPreferences
 import app.khodko.feedcat.databinding.FragmentResultsBinding
-import app.khodko.feedcat.preferences.UserPreferences
 
 class ResultsFragment : Fragment() {
 
@@ -27,8 +27,7 @@ class ResultsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val user = UserPreferences.getInstance(requireContext()).getUser()
-        resultsViewModel =
-            getViewModelExt { ResultsViewModel(App.instance.gameResultRepository, user) }
+        resultsViewModel = getViewModelExt { ResultsViewModel(App.instance.gameResultRepository, user) }
         _binding = FragmentResultsBinding.inflate(inflater, container, false)
 
         initRecycler()

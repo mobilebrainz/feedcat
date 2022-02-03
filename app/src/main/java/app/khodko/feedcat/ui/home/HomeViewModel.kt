@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.khodko.feedcat.core.viewmodel.SingleLiveEvent
-import app.khodko.feedcat.database.entity.GameResult
-import app.khodko.feedcat.database.entity.User
-import app.khodko.feedcat.database.repository.GameResultRepository
-import app.khodko.feedcat.database.repository.UserRepository
+import app.khodko.feedcat.data.entity.GameResult
+import app.khodko.feedcat.data.entity.User
+import app.khodko.feedcat.data.repository.GameResultRepository
+import app.khodko.feedcat.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(

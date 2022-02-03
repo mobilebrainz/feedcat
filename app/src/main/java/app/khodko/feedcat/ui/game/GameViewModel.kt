@@ -5,23 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.khodko.feedcat.core.viewmodel.SingleLiveEvent
-import app.khodko.feedcat.database.entity.GameResult
-import app.khodko.feedcat.database.entity.User
-import app.khodko.feedcat.database.repository.GameResultRepository
+import app.khodko.feedcat.data.entity.GameResult
+import app.khodko.feedcat.data.entity.User
+import app.khodko.feedcat.data.repository.GameResultRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+private const val MAX_COUNT = 15
+
 class GameViewModel(
     private val gameResultRepository: GameResultRepository,
     val user: User?
 ) : ViewModel() {
-
-    companion object {
-        const val MAX_COUNT = 15
-    }
 
     private lateinit var job: Job
     private val _satiety = MutableLiveData(0)

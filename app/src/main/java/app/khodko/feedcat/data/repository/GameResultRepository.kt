@@ -1,8 +1,8 @@
-package app.khodko.feedcat.database.repository
+package app.khodko.feedcat.data.repository
 
 import androidx.annotation.WorkerThread
-import app.khodko.feedcat.database.dao.GameResultDao
-import app.khodko.feedcat.database.entity.GameResult
+import app.khodko.feedcat.data.dao.GameResultDao
+import app.khodko.feedcat.data.entity.GameResult
 
 class GameResultRepository(private val gameResultDao: GameResultDao) {
 

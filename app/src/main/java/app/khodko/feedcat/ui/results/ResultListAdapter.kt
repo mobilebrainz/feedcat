@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.khodko.feedcat.R
-import app.khodko.feedcat.database.entity.GameResult
+import app.khodko.feedcat.data.entity.GameResult
 
 class ResultListAdapter : ListAdapter<GameResult, ResultListAdapter.ResultViewHolder>(RESULTS_COMPARATOR) {
 

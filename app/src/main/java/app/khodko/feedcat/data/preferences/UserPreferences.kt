@@ -1,9 +1,9 @@
-package app.khodko.feedcat.preferences
+package app.khodko.feedcat.data.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import app.khodko.feedcat.database.entity.User
-import app.khodko.feedcat.preferences.PreferenceHelper.editMe
+import app.khodko.feedcat.data.entity.User
+import app.khodko.feedcat.data.preferences.PreferenceHelper.editMe
 
 private const val USER_PREFERENCES = "USER_PREFERENCES"
 private const val USER_ID = "USER_ID"

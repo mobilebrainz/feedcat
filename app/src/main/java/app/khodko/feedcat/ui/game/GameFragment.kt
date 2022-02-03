@@ -9,21 +9,17 @@ import app.khodko.feedcat.App
 import app.khodko.feedcat.R
 import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.core.extension.navigateExt
+import app.khodko.feedcat.data.preferences.UserPreferences
 import app.khodko.feedcat.databinding.FragmentGameBinding
-import app.khodko.feedcat.preferences.UserPreferences
 
 class GameFragment : Fragment() {
 
-    private var btnId = -1
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
+    private var btnId = -1
     private lateinit var gameViewModel: GameViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val user = UserPreferences.getInstance(requireContext()).getUser()
         gameViewModel = getViewModelExt { GameViewModel(App.instance.gameResultRepository, user) }
         _binding = FragmentGameBinding.inflate(inflater, container, false)
@@ -48,15 +44,9 @@ class GameFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.btnFeed1.setOnClickListener {
-            feed(btnId == R.id.btn_feed1)
-        }
-        binding.btnFeed2.setOnClickListener {
-            feed(btnId == R.id.btn_feed2)
-        }
-        binding.btnFeed3.setOnClickListener {
-            feed(btnId == R.id.btn_feed3)
-        }
+        binding.btnFeed1.setOnClickListener { feed(btnId == R.id.btn_feed1) }
+        binding.btnFeed2.setOnClickListener { feed(btnId == R.id.btn_feed2) }
+        binding.btnFeed3.setOnClickListener { feed(btnId == R.id.btn_feed3) }
         binding.btnGameOver.setOnClickListener {
             gameViewModel.save()
             navigateExt(R.id.nav_home)

@@ -1,4 +1,4 @@
-package app.khodko.feedcat.preferences
+package app.khodko.feedcat.data.preferences
 
 import android.content.Context
 import android.content.SharedPreferences

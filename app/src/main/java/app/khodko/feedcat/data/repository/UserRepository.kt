@@ -1,8 +1,8 @@
-package app.khodko.feedcat.database.repository
+package app.khodko.feedcat.data.repository
 
 import androidx.annotation.WorkerThread
-import app.khodko.feedcat.database.dao.UserDao
-import app.khodko.feedcat.database.entity.User
+import app.khodko.feedcat.data.dao.UserDao
+import app.khodko.feedcat.data.entity.User
 
 class UserRepository(private val userDao: UserDao) {
 

@@ -1,5 +1,5 @@
 
-package app.khodko.feedcat.database.entity
+package app.khodko.feedcat.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
