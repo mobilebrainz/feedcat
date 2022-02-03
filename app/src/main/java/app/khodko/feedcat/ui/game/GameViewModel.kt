@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 private const val MAX_COUNT = 15
+private const val ANIMATION_DELAY = 1500L
 
 class GameViewModel(
     private val gameResultRepository: GameResultRepository,
@@ -56,7 +57,7 @@ class GameViewModel(
     private fun timer() = viewModelScope.launch {
         while (true) {
             _animateNumber.postValue(Random().nextInt(90) / 30)
-            delay(1500L)
+            delay(ANIMATION_DELAY)
         }
     }
 
