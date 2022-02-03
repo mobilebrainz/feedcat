@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Developing/Projects/Android/feedcat/app/src/main/res/drawable/ic_home_24.xml" value="0.117" />
+        <entry key="..\:/Developing/Projects/Android/feedcat/app/src/main/res/drawable/ic_info_24.xml" value="0.1" />
         <entry key="..\:/Developing/Projects/Android/feedcat/app/src/main/res/drawable/ic_share_24.xml" value="0.1835" />
+        <entry key="..\:/Developing/Projects/Android/feedcat/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Developing/Projects/Android/feedcat/app/src/main/res/layout/activity_main.xml" value="0.1641337386018237" />
         <entry key="..\:/Developing/Projects/Android/feedcat/app/src/main/res/layout/fragment_about.xml" value="0.1641337386018237" />
         <entry key="..\:/Developing/Projects/Android/feedcat/app/src/main/res/layout/fragment_game.xml" value="0.25" />
