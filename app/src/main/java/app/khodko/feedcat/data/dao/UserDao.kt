@@ -1,7 +1,7 @@
-package app.khodko.feedcat.database.dao
+package app.khodko.feedcat.data.dao
 
 import androidx.room.*
-import app.khodko.feedcat.database.entity.User
+import app.khodko.feedcat.data.entity.User
 
 @Dao
 interface UserDao {

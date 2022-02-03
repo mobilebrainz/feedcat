@@ -5,12 +5,12 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import app.khodko.feedcat.App
 import app.khodko.feedcat.R
-import app.khodko.feedcat.ShareTextInterface
 import app.khodko.feedcat.core.extension.getViewModelExt
 import app.khodko.feedcat.core.extension.navigateExt
-import app.khodko.feedcat.database.entity.User
+import app.khodko.feedcat.data.entity.User
+import app.khodko.feedcat.data.preferences.UserPreferences
 import app.khodko.feedcat.databinding.FragmentHomeBinding
-import app.khodko.feedcat.preferences.UserPreferences
+import app.khodko.feedcat.ui.activity.ShareTextInterface
 
 class HomeFragment : Fragment() {
 
@@ -40,9 +40,7 @@ class HomeFragment : Fragment() {
         initListeners()
 
         val user = userPreferences.getUser()
-        user?.let {
-            homeViewModel.setUser(it)
-        }
+        user?.let { homeViewModel.setUser(it) }
 
         return binding.root
     }

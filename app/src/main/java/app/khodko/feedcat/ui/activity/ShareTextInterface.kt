@@ -1,4 +1,4 @@
-package app.khodko.feedcat
+package app.khodko.feedcat.ui.activity
 
 interface ShareTextInterface {
 

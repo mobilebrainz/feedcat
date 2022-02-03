@@ -1,19 +1,15 @@
 package app.khodko.feedcat
 
 import android.app.Application
-import app.khodko.feedcat.database.FeedCatRoomDatabase
-import app.khodko.feedcat.database.repository.GameResultRepository
-import app.khodko.feedcat.database.repository.UserRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
+import app.khodko.feedcat.data.FeedCatRoomDatabase
+import app.khodko.feedcat.data.repository.GameResultRepository
+import app.khodko.feedcat.data.repository.UserRepository
 
 class App : Application() {
 
     companion object {
         lateinit var instance: App
     }
-
-    val applicationScope = CoroutineScope(SupervisorJob())
 
     val database by lazy { FeedCatRoomDatabase.getDatabase(this) }
     val gameResultRepository by lazy { GameResultRepository(database.gameResultDao()) }

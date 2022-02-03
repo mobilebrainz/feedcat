@@ -1,13 +1,13 @@
-package app.khodko.feedcat.database
+package app.khodko.feedcat.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import app.khodko.feedcat.database.dao.GameResultDao
-import app.khodko.feedcat.database.dao.UserDao
-import app.khodko.feedcat.database.entity.GameResult
-import app.khodko.feedcat.database.entity.User
+import app.khodko.feedcat.data.dao.GameResultDao
+import app.khodko.feedcat.data.dao.UserDao
+import app.khodko.feedcat.data.entity.GameResult
+import app.khodko.feedcat.data.entity.User
 
 @Database(entities = [GameResult::class, User::class], version = 1, exportSchema = false)
 abstract class FeedCatRoomDatabase : RoomDatabase() {

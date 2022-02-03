@@ -1,4 +1,4 @@
-package app.khodko.feedcat
+package app.khodko.feedcat.ui.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,7 +10,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

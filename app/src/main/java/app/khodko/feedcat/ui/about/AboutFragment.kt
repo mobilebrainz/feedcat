@@ -42,7 +42,6 @@ class AboutFragment : Fragment() {
             intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
             startActivity(Intent.createChooser(intent, getString(R.string.choose_email_client)))
         } catch (ex: android.content.ActivityNotFoundException) {
-            //showInfoSnackbar(R.string.send_mail_error);
         }
     }
 
