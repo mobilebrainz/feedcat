@@ -23,13 +23,14 @@ class HelpFragment : Fragment() {
     ): View {
         helpViewModel = getViewModelExt { HelpViewModel() }
         _binding = FragmentHelpBinding.inflate(inflater, container, false)
+        initPages()
+        return binding.root
+    }
 
-        //todo: заменить на массив строк
-        val pages = listOf(getString(R.string.page_1), getString(R.string.page_2), getString(R.string.page_3))
+    private fun initPages() {
+        val pages: Array<String> = resources.getStringArray(R.array.help_pages_array)
         val adapter = HelpPagerAdapter(pages)
         binding.viewPager.adapter = adapter
-
-        return binding.root
     }
 
     override fun onDestroyView() {

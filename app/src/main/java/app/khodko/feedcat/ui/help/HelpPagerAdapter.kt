@@ -8,9 +8,9 @@ import androidx.core.text.HtmlCompat
 import androidx.viewpager.widget.PagerAdapter
 import app.khodko.feedcat.R
 
-class HelpPagerAdapter(private val list: List<String>) : PagerAdapter() {
+class HelpPagerAdapter(private val array: Array<String>) : PagerAdapter() {
 
-    override fun getCount() = list.size
+    override fun getCount() = array.size
 
     override fun isViewFromObject(view: View, `object`: Any) = view === `object` as View
 
@@ -21,8 +21,8 @@ class HelpPagerAdapter(private val list: List<String>) : PagerAdapter() {
         val helpView: TextView = view.findViewById(R.id.helpView)
         val footerView: TextView = view.findViewById(R.id.footerView)
 
-        helpView.text = HtmlCompat.fromHtml(list[position], HtmlCompat.FROM_HTML_MODE_LEGACY)
-        footerView.text = "Page ${position + 1} of ${list.size}"
+        helpView.text = HtmlCompat.fromHtml(array[position], HtmlCompat.FROM_HTML_MODE_LEGACY)
+        footerView.text = view.context.getString(R.string.helper_pager_footer, position + 1, array.size)
 
         container.addView(view)
         return view

@@ -34,6 +34,8 @@
     <string name="btn_feed2">Meat</string>
     <string name="btn_feed3">Milk</string>
 
+    <string name="helper_pager_footer">Page %1$d of %2$d</string>
+
     <!-- Send email -->
     <string name="feedcat_email">feedcat@gmail.com</string>
     <string name="choose_email_client">Choose email client and send message</string>
