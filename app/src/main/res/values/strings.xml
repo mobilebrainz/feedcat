@@ -11,6 +11,7 @@
     <string name="menu_game">FeedTheCat</string>
     <string name="menu_results">Results</string>
     <string name="menu_about">About</string>
+    <string name="menu_help">Help</string>
     <string name="options_share">Share</string>
 
     <string name="text_satiety">Satiety: %1$d</string>
