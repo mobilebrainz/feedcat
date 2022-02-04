@@ -25,4 +25,12 @@
     <style name="Theme.FeedCat.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.FeedCat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="NestedScrollBarStyle">
+        <item name="android:scrollbarFadeDuration">250</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:fillViewport">true</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
 </resources>

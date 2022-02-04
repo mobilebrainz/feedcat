@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/appBackground"
-    android:fillViewport="true"
+    style="@style/NestedScrollBarStyle"
     tools:context=".ui.home.HomeFragment">
 
     <FrameLayout

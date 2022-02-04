@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), ShareTextInterface {
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_about), drawerLayout
+            setOf(R.id.nav_home, R.id.nav_about, R.id.nav_help), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
